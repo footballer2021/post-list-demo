@@ -1,25 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Posts from "./pages/Posts";
+import { DataContext } from "./context/DataContext";
+import PostIndex from "./components/PostIndex";
+import Post from "./pages/Post";
 
-function App() {
+const App:React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <DataContext>
+      <Routes>
+        <Route path='/' element={<Home/>}>
+          <Route path='/posts' element={<Posts/>}>
+            <Route path='' element={<PostIndex />}/>
+            <Route path=':userId' element={<Post />}/>
+          </Route >
+        </Route>
+      </Routes>
+      </DataContext>
+    </BrowserRouter>
   );
 }
 
